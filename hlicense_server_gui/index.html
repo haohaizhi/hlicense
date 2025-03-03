@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlicense 授权工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hlicense 授权服务</h1>
+        <button id="generateKeys">生成RSA秘钥对</button>
+
+        <h2>授权配置</h2>
+        <div class="form-group">
+            <label for="deviceDid">设备机器码文件路径:</label>
+            <input type="text" id="deviceDid" readonly>
+            <button id="browseDeviceDid">选择</button>
+        </div>
+        <div class="form-group">
+            <label for="privateKey">私钥文件路径:</label>
+            <input type="text" id="privateKey" readonly>
+            <button id="browsePrivateKey">选择</button>
+        </div>
+        <div class="form-group">
+            <label for="days">授权天数:</label>
+            <select id="days">
+                <option value="30">30 Days</option>
+                <option value="60">60 Days</option>
+                <option value="90">90 Days</option>
+                <option value="180">180 Days</option>
+                <option value="365">365 Days</option>
+                <option value="0">永久</option>
+            </select>
+        </div>
+        <button id="generateLicense">授权</button>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
