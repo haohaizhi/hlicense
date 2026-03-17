@@ -25,7 +25,7 @@ function createWindow() {
     win.loadFile('index.html');
 
     // 打开开发者工具
-     win.webContents.openDevTools();
+    // win.webContents.openDevTools();
 }
 
 // 去除尾部为 0 的字节
@@ -148,7 +148,7 @@ ipcMain.handle('decrypt-file', async (event, filePath, privateKeyPath, days) => 
 
         // 计算结束时间
         
-        const endTime = createTime + days * 24 * 60 * 60;
+        let endTime = createTime + days * 24 * 60 * 60;
         if(days == 0)
             endTime = 0;
 
