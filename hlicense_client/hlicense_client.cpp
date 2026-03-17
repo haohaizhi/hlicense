@@ -349,11 +349,16 @@ void create_machine_code(const char *filename, const char *network_card) {
         sprintf(cpu_sn,"%s","Unknown_CPU_SN");
     mainboardsn_len = shellcmd("dmidecode -t baseboard | grep 'Serial Number' | tail -n 1", mainboard_sn, sizeof(mainboard_sn));
     if(mainboardsn_len <= 0 )
-        sprintf(cpu_sn,"%s","Unknown_Mainboard_SN");
+        sprintf(mainboard_sn,"%s","Unknown_Mainboard_SN");
     disksn_len = shellcmd("lsblk -o NAME,SERIAL | grep -E 'sda' | tail -n 1", disk_sn, sizeof(disk_sn));
     if(disksn_len <= 0 )
-        sprintf(cpu_sn,"%s","Unknown_Disk_SN");
+        sprintf(disk_sn,"%s","Unknown_Disk_SN");
     
+    cpusn_len = strlen(cpu_sn);
+    mainboardsn_len = strlen(mainboard_sn);
+    disksn_len = strlen(disk_sn);
+    mac_len = strlen(mac_address);
+
     char hardware_info[512] = {0};
     memcpy(hardware_info, cpu_sn, cpusn_len);
     memcpy(hardware_info + cpusn_len, mainboard_sn, mainboardsn_len);
@@ -465,16 +470,22 @@ int import_license(const char *license_file) {
         sprintf(cpu_sn,"%s","Unknown_CPU_SN");
     mainboardsn_len = shellcmd("dmidecode -t baseboard | grep 'Serial Number' | tail -n 1", mainboard_sn, sizeof(mainboard_sn));
     if(mainboardsn_len <= 0 )
-        sprintf(cpu_sn,"%s","Unknown_Mainboard_SN");
+        sprintf(mainboard_sn,"%s","Unknown_Mainboard_SN");
     disksn_len = shellcmd("lsblk -o NAME,SERIAL | grep -E 'sda' | tail -n 1", disk_sn, sizeof(disk_sn));
     if(disksn_len <= 0 )
-        sprintf(cpu_sn,"%s","Unknown_Disk_SN");
+        sprintf(disk_sn,"%s","Unknown_Disk_SN");
     
+    cpusn_len = strlen(cpu_sn);
+    mainboardsn_len = strlen(mainboard_sn);
+    disksn_len = strlen(disk_sn);
+    mac_len = strlen(mac_address);
+
     char hardware_info[512] = {0};
     memcpy(hardware_info, cpu_sn, cpusn_len);
     memcpy(hardware_info + cpusn_len, mainboard_sn, mainboardsn_len);
     memcpy(hardware_info + cpusn_len + mainboardsn_len, disk_sn, disksn_len);
     memcpy(hardware_info + cpusn_len + mainboardsn_len + disksn_len, mac_address, mac_len);
+    
     unsigned char result[MD5_DIGEST_LENGTH];
     calculate_md5(hardware_info, result);
 
