@@ -168,7 +168,9 @@ ipcMain.handle('decrypt-file', async (event, filePath, privateKeyPath, days) => 
         const encryptedBase64 = encryptWithPrivateKey(rsaPrivateKey, jsonString);
 
         // 写入到文件
-        const outputFilePath = path.join(appPath, `${decryptedData}.lic`); // 文件名
+        const exeDir = path.dirname(app.getPath('exe'));
+		const parentDir = path.dirname(exeDir);
+        const outputFilePath = path.join(exeDir, `${decryptedData}.lic`); // 文件名
         fs.writeFileSync(outputFilePath, encryptedBase64); // 写入文件
 
 
